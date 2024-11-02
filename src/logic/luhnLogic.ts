@@ -6,7 +6,7 @@ export const isValidLuhn = (personalNumber: string) => {
         return false;
     }
 
-    if (personalNumber.length > 12) {
+    if (personalNumber.length < 12 || personalNumber.length > 12) {
         return false;
     }
 

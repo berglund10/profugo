@@ -17,7 +17,7 @@ test("input can't contain more than 12 digits", () => {
     deepEqual(result, false);
 });
 
-test.skip("input can't contain less than 12 digits", () => {
+test("input can't contain less than 12 digits", () => {
     const result = isValidLuhn("9921027-0196");
     deepEqual(result, false);
 });
