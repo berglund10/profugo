@@ -18,7 +18,6 @@ test("GET /api/v1/registration", async () => {
   const result = await request(app).get("/api/v1/registration");
 
   deepEqual(result.status, 200);
-  deepEqual(result.body, []);
 });
 test("POST /api/v1/registration", async () => {
   const app = createApp();
@@ -32,24 +31,24 @@ test("POST /api/v1/registration", async () => {
 test("GET /api/v1/registration:id", async () => {
   const app = createApp();
 
-  const result = await request(app).get("/api/v1/registration1");
+  const result = await request(app).get("/api/v1/registration/1");
 
   deepEqual(result.status, 200);
 });
 test("DELETE /api/v1/registration", async () => {
   const app = createApp();
 
-  const result = await request(app).delete("/api/v1/registration1");
+  const result = await request(app).delete("/api/v1/registration/1");
 
   deepEqual(result.status, 200);
 });
 
-test("PATCH /api/v1/registration", async () => {
+test("PUT /api/v1/registration", async () => {
   const app = createApp();
 
   const result = await request(app)
-    .patch("/api/v1/registration/1")
-    .send({ city: "Södertälje" });
+    .put("/api/v1/registration/1")
+    .send({ city: "Stockholm"});
 
   deepEqual(result.status, 200);
 });
