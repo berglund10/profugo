@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import { Person, personSchema } from "../validation";
+import { personSchema } from "../validation";
+import { PersonDatabase } from "../db/person-database";
 
-export function createRegistrationRouter(db: Person[]) {
+export function createRegistrationRouter(db: PersonDatabase) {
   return {
     getRouter() {
       const router = express.Router();
@@ -24,7 +25,7 @@ export function createRegistrationRouter(db: Person[]) {
           res.status(400).json({ error: { message: "Invalid input" } });
         }
 
-        db.add(result.data);
+        db.addPerson(PersonToRegister);
         res.status(201).json(result.data!.id);
       });
 
