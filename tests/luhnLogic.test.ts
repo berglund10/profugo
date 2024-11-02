@@ -27,12 +27,12 @@ test("input can contain - sign and be valid", () => {
     deepEqual(result, true);
 });
 
-test.skip("input with multiple -- should return false", () => {
+test("input with multiple -- should return false", () => {
     const result = isValidLuhn("19921027--0196");
     deepEqual(result, false);
 });
 
-test.skip("input can just contain 12 digits and be valid", () => {
+test("input can just contain 12 digits and be valid", () => {
     const result = isValidLuhn("199210270196");
     deepEqual(result, true);
 });
