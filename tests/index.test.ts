@@ -13,46 +13,46 @@ test("GET /status", async () => {
     deepEqual(result.body, {message : "Ready"});
 })
 
-test("GET /api/v1/register", async () => {
+test("GET /api/v1/registration", async () => {
 
     const app = createApp();
 
-    const result = await request(app).get("/api/v1/register");
+    const result = await request(app).get("/api/v1/registration");
 
     deepEqual(result.status, 200)
     deepEqual(result.body, []);
 })
-test("POST /api/v1/register", async () => {
+test("POST /api/v1/registration", async () => {
 
     const app = createApp();
 
-    const result = await request(app).post("/api/v1/register").send({name: "Anton", personalNumber: "19921027", city: "Stockholm"});
+    const result = await request(app).post("/api/v1/registration").send({name: "Anton", personalNumber: "19921027", city: "Stockholm"});
 
 
     deepEqual(result.status, 201)
 })
-test("GET /api/v1/register/:id", async () => {
+test("GET /api/v1/registration:id", async () => {
 
     const app = createApp();
 
-    const result = await request(app).get("/api/v1/register/1");
+    const result = await request(app).get("/api/v1/registration1");
 
     deepEqual(result.status, 200)
 })
-test("DELETE /api/v1/register", async () => {
+test("DELETE /api/v1/registration", async () => {
 
     const app = createApp();
 
-    const result = await request(app).delete("/api/v1/register/1");
+    const result = await request(app).delete("/api/v1/registration1");
 
     deepEqual(result.status, 200)
 })
 
-test("PATCH /api/v1/register", async () => {
+test("PATCH /api/v1/registration", async () => {
 
     const app = createApp();
 
-    const result = await request(app).patch("/api/v1/register/1").send({city: "Södertälje"});
+    const result = await request(app).patch("/api/v1/registration/1").send({city: "Södertälje"});
 
     deepEqual(result.status, 200)
 })

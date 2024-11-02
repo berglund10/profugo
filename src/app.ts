@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-import { createRegisterRouter } from "./routes/register";
+import { createRegistrationRouter } from "./routes/registration";
 
 export function createApp() {
 
-  const registerRouter = createRegisterRouter();
+  const registration = createRegistrationRouter();
 
   const app = express();
   
@@ -13,7 +13,7 @@ export function createApp() {
     res.status(200).json({ message: "Ready" });
   });
 
-  app.use("/api/v1/register", registerRouter.getRouter());
+  app.use("/api/v1/registration", registration.getRouter());
 
   return app;
 }
