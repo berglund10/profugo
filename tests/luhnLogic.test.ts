@@ -22,7 +22,7 @@ test("input can't contain less than 12 digits", () => {
     deepEqual(result, false);
 });
 
-test.skip("input can contain - sign and be valid", () => {
+test("input can contain - sign and be valid", () => {
     const result = isValidLuhn("19921027-0196");
     deepEqual(result, true);
 });
