@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import { personSchema } from "../validation";
+import { personSchema, updatePersonSchema } from "../validation";
 import { PersonDatabase } from "../db/person-database";
 
 export function createRegistrationRouter(db: PersonDatabase) {
@@ -79,10 +79,19 @@ export function createRegistrationRouter(db: PersonDatabase) {
 
       router.put("/:id", async (req: Request, res: Response) => {
         const id = req.params.id;
-        const { name, city } = req.body;
+        const personToUpdate = {
+          name: req.body.name,
+          city: req.body.city,
+        };
+
+        const result = updatePersonSchema.safeParse(personToUpdate);
+        if (!result.success) {
+          res.status(400).json({ error: { message: "Invalid input" } });
+          return;
+        }
 
         try {
-          const updatedPerson = await db.putPersonById(id, { name, city });
+          const updatedPerson = await db.putPersonById(id, personToUpdate);
           if (!updatedPerson) {
             res.status(404).json({ error: { message: "Person not found" } });
             return;
