@@ -73,7 +73,6 @@ export function createRegistrationRouter(db: PersonDatabase) {
           res
             .status(500)
             .json({ error: { message: "Failed to delete person" } });
-          return;
         }
       });
 
@@ -102,7 +101,6 @@ export function createRegistrationRouter(db: PersonDatabase) {
           res
             .status(500)
             .json({ error: { message: "Failed to update person" } });
-          return;
         }
       });
 
