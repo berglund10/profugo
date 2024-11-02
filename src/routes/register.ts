@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { v4 as uuidv4 } from 'uuid';
 
 export function createRegisterRouter() {
   return {
@@ -7,6 +8,12 @@ export function createRegisterRouter() {
       router.get("/", (req: Request, res: Response) => {
         res.status(200).json([]);
       });
+
+      router.post("/", (req: Request, res:Response) => {
+        const {name, personalNumber, city} = req.body;
+        const id = uuidv4();
+        res.status(201).json({id})
+      })
 
       return router;
     },

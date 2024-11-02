@@ -15,7 +15,5 @@ export function createApp() {
 
   app.use("/api/v1/register", registerRouter.getRouter());
 
-
-
   return app;
 }
