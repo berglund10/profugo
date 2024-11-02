@@ -5,7 +5,10 @@ export interface PersonDatabase {
   addPerson: (person: Person) => Promise<void>;
   getPersonById: (id: string) => Promise<Person | null>;
   deletePersonById: (id: string) => Promise<boolean>;
-  putPersonById: (id: string, updatedPerson: Person) => Promise<Person | null>;
+  putPersonById: (
+    id: string,
+    updates: { name?: string; city?: string },
+  ) => Promise<Person | null>;
 }
 
 export const createDb = (): PersonDatabase => {
@@ -28,17 +31,25 @@ export const createDb = (): PersonDatabase => {
       return person || null;
     },
     deletePersonById: async (id: string) => {
-        const index = personDatabase.findIndex(p => p.id === id);
-        if (index !== -1) {
-            personDatabase.splice(index, 1);
-            return true;
-        }
-        return false;
-    },
-    putPersonById: async (id: string, updatedPerson: Person) => {
       const index = personDatabase.findIndex((p) => p.id === id);
       if (index !== -1) {
-        personDatabase[index] = { ...updatedPerson, id };
+        personDatabase.splice(index, 1);
+        return true;
+      }
+      return false;
+    },
+    putPersonById: async (
+      id: string,
+      updates: { name?: string; city?: string },
+    ) => {
+      const index = personDatabase.findIndex((p) => p.id === id);
+      if (index !== -1) {
+        const currentPerson = personDatabase[index];
+        personDatabase[index] = {
+          ...currentPerson,
+          name: updates.name !== undefined ? updates.name : currentPerson.name,
+          city: updates.city !== undefined ? updates.city : currentPerson.city,
+        };
         return personDatabase[index];
       }
       return null;

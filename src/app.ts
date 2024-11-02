@@ -3,7 +3,7 @@ import { createRegistrationRouter } from "./routes/registration";
 import { createDb } from "./db/person-database";
 
 export function createApp() {
-  const personDb = createDb()
+  const personDb = createDb();
   const registration = createRegistrationRouter(personDb);
 
   const app = express();

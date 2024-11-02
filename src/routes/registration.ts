@@ -7,11 +7,19 @@ export function createRegistrationRouter(db: PersonDatabase) {
   return {
     getRouter() {
       const router = express.Router();
-      router.get("/", (req: Request, res: Response) => {
-        res.status(200).json([]);
+
+      router.get("/", async (req: Request, res: Response) => {
+        try {
+          const persons = await db.getAll();
+          res.status(200).json(persons);
+        } catch (error) {
+          res
+            .status(500)
+            .json({ error: { message: "Failed to fetch persons" } });
+        }
       });
 
-      router.post("/", (req: Request, res: Response) => {
+      router.post("/", async (req: Request, res: Response) => {
         const { name, personalNumber, city } = req.body;
         const id = uuidv4();
         const PersonToRegister = {
@@ -23,26 +31,70 @@ export function createRegistrationRouter(db: PersonDatabase) {
         const result = personSchema.safeParse(PersonToRegister);
         if (!result.success) {
           res.status(400).json({ error: { message: "Invalid input" } });
+          return;
         }
 
-        db.addPerson(PersonToRegister);
-        res.status(201).json(result.data!.id);
+        try {
+          await db.addPerson(PersonToRegister);
+          res.status(201).json(PersonToRegister.id);
+        } catch (error) {
+          res
+            .status(500)
+            .json({ error: { message: "Failed to register person" } });
+        }
       });
 
-      router.get("/:id", (req: Request, res: Response) => {
+      router.get("/:id", async (req: Request, res: Response) => {
         const id = req.params.id;
-        res.status(200).json("Person from db with id:" + id);
+        try {
+          const person = await db.getPersonById(id);
+          if (!person) {
+            res.status(404).json({ error: { message: "Person not found" } });
+            return;
+          }
+          res.status(200).json(person);
+        } catch (error) {
+          console.error("Error fetching person by ID:", error);
+          res
+            .status(500)
+            .json({ error: { message: "Failed to fetch person" } });
+        }
       });
 
-      router.delete("/:id", (req: Request, res: Response) => {
+      router.delete("/:id", async (req: Request, res: Response) => {
         const id = req.params.id;
-        res.status(200).json("Delete person by id:" + id);
+        try {
+          if (!(await db.deletePersonById(id))) {
+            res.status(404).json({ error: { message: "Person not found" } });
+            return;
+          }
+          res.status(200).json({ message: "Person deleted successfully" });
+        } catch (error) {
+          res
+            .status(500)
+            .json({ error: { message: "Failed to delete person" } });
+          return;
+        }
       });
 
-      router.patch("/:id", (req: Request, res: Response) => {
+      router.put("/:id", async (req: Request, res: Response) => {
         const id = req.params.id;
-        const { city } = req.body;
-        res.status(200).json("Updated city for person" + id);
+        const { name, city } = req.body;
+
+        try {
+          const updatedPerson = await db.putPersonById(id, { name, city });
+          if (!updatedPerson) {
+            res.status(404).json({ error: { message: "Person not found" } });
+            return;
+          }
+          res.status(200).json(updatedPerson);
+        } catch (error) {
+          console.error("Error updating person:", error);
+          res
+            .status(500)
+            .json({ error: { message: "Failed to update person" } });
+          return;
+        }
       });
 
       return router;
