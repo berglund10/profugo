@@ -12,6 +12,13 @@ export function createRegisterRouter() {
       router.post("/", (req: Request, res:Response) => {
         const {name, personalNumber, city} = req.body;
         const id = uuidv4();
+        const PersonToRegister = {
+            id,
+            name,
+            personalNumber,
+            city
+        }
+        //db.add(PersonToRegister)
         res.status(201).json({id})
       })
 
