@@ -1,28 +1,33 @@
 export const isValidLuhn = (personalNumber: string) => {
+  if (!format(personalNumber)) return false;
 
-    if(personalNumber.length === 0) return false;
+  return true;
+};
 
-    if (personalNumber.length !== 13 && personalNumber.length !== 12) {
-        return false;
+const format = (personalNumber: string) => {
+  if (personalNumber.length === 0) return false;
+
+  if (personalNumber.length !== 13 && personalNumber.length !== 12) {
+    return false;
+  }
+
+  const hasDash = personalNumber.includes("-");
+
+  if (hasDash) {
+    if (personalNumber[8] !== "-") {
+      return false;
     }
+  }
 
-    const hasDash = personalNumber.includes('-');
+  const digitsOnly = personalNumber.replace(/-/g, "");
 
-    if (hasDash) {
-        if (personalNumber[8] !== '-') {
-            return false;
-        }
-    }
+  if (/[^0-9]/.test(digitsOnly)) {
+    return false;
+  }
 
-    const digitsOnly = personalNumber.replace(/-/g, '');
+  if (digitsOnly.length !== 12) {
+    return false;
+  }
 
-    if (/[^0-9]/.test(digitsOnly)) {
-        return false;
-    }
-
-    if (digitsOnly.length !== 12) {
-        return false;
-    }
-
-    return true;
-}
+  return true;
+};
