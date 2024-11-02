@@ -28,8 +28,12 @@ const createDb = (): PersonDatabase => {
       return person || null;
     },
     deletePersonById: async (id: string) => {
-      const index = personDatabase.findIndex((p) => p.id === id);
-      return index !== -1 ? (personDatabase.splice(index, 1), true) : false;
+        const index = personDatabase.findIndex(p => p.id === id);
+        if (index !== -1) {
+            personDatabase.splice(index, 1);
+            return true;
+        }
+        return false;
     },
     putPersonById: async (id: string, updatedPerson: Person) => {
       const index = personDatabase.findIndex((p) => p.id === id);
