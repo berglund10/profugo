@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { personSchema, updatePersonSchema } from "../validation";
 import { PersonDatabase } from "../db/person-database";
+import { isValidLuhn } from "../logic/luhnLogic";
 
 export function createRegistrationRouter(db: PersonDatabase) {
   return {
@@ -29,7 +30,7 @@ export function createRegistrationRouter(db: PersonDatabase) {
           city,
         };
         const result = personSchema.safeParse(PersonToRegister);
-        if (!result.success) {
+        if (!result.success || !isValidLuhn(PersonToRegister.personalNumber)) {
           res.status(400).json({ error: { message: "Invalid input" } });
           return;
         }
