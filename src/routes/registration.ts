@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from 'uuid';
+import { personSchema } from "../validation";
 
 export function createRegistrationRouter() {
   return {
@@ -18,8 +19,13 @@ export function createRegistrationRouter() {
             personalNumber,
             city
         }
-        //db.add(PersonToRegister)
-        res.status(201).json({id})
+        const result = personSchema.safeParse(PersonToRegister);
+        if(!result.success) {
+            res.status(400).json({error: {message: "Invalid input"}})
+        }
+
+        //db.add(result.data)
+        res.status(201).json(result.data!.id)
       })
 
       router.get("/:id", (req: Request, res:Response) => {

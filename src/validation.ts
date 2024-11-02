@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const personSchema = z.object({
+export const personSchema = z.object({
     id: z.string(),
     name: z.string(),
     personalNumber: z.string(),
@@ -8,5 +8,5 @@ const personSchema = z.object({
 
   });
 
-  
-  type Person = z.infer<typeof personSchema>;
+
+  export type Person = z.infer<typeof personSchema>;
