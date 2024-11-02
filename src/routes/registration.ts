@@ -27,6 +27,11 @@ export function createRegistrationRouter() {
         res.status(200).json("Person from db with id:" + id);
       })
 
+      router.delete("/:id", (req: Request, res:Response) => {
+        const id = req.params.id;
+        res.status(200).json("Delete person by id:" + id);
+      })
+
       return router;
     },
   };
