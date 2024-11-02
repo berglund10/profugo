@@ -8,7 +8,7 @@ export interface PersonDatabase {
   putPersonById: (id: string, updatedPerson: Person) => Promise<Person | null>;
 }
 
-const createDb = (): PersonDatabase => {
+export const createDb = (): PersonDatabase => {
   const personDatabase: Person[] = [
     {
       id: "1",
