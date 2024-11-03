@@ -7,10 +7,10 @@ import { createContributionsDb } from "./db/contributions-database";
 
 export function createApp() {
   const personDb = createPersonDb();
-  const contributions = createContributionsDb();
+  const contributionsDb = createContributionsDb();
 
   const registration = createRegistrationRouter(personDb);
-  const foodContribution = createFoodContributionsRouter(contributions);
+  const foodContribution = createFoodContributionsRouter(contributionsDb);
 
   const app = express();
 
@@ -22,7 +22,7 @@ export function createApp() {
 
   app.use("/api/v1/registration", registration.getRouter());
 
-  app.use(resetFoodDatabase(contributions));
+  app.use(resetFoodDatabase(contributionsDb));
 
   app.use("/api/v1/food-contributions", foodContribution.getRouter());
 

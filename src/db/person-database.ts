@@ -15,9 +15,9 @@ export const createPersonDb = (): PersonDatabase => {
   const personDatabase: Person[] = [
     {
       id: "1",
-      name: "Anton",
-      personalNumber: "19921027-0196",
-      city: "Södertälje",
+      name: "FakePersonValidPersonalNumber",
+      personalNumber: "19640823-3234",
+      city: "Stockholm",
     },
   ];
 

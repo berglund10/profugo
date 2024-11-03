@@ -28,7 +28,7 @@ test("POST /api/v1/registration", async () => {
     city: "Stockholm",
   });
 
-  deepEqual(result.body.error, "Person already in database");
+  deepEqual(result.status, 201);
 });
 
 test("POST /api/v1/registration", async () => {
@@ -39,8 +39,7 @@ test("POST /api/v1/registration", async () => {
     personalNumber: "19640823-3234",
     city: "Göteborg",
   });
-
-  deepEqual(result.status, 201);
+  deepEqual(result.body.error, "Person already in database");
 });
 test("GET /api/v1/registration:id", async () => {
   const app = createApp();
