@@ -56,7 +56,7 @@ export function createRegistrationRouter(db: PersonDatabase) {
           res.status(200).json(person);
         } catch (error) {
           if (error instanceof Error) {
-            res.status(400).json({ error: error.message });
+            res.status(404).json({ error: error.message });
             return;
           }
           res.status(500).json({ error: { message: "Internal server error" } });
