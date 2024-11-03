@@ -8,13 +8,21 @@ export const personSchema = z.object({
 });
 
 const nameSchema = z.object({
-    name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required"),
 });
 
 const citySchema = z.object({
-    city: z.string().min(1, "City is required"),
+  city: z.string().min(1, "City is required"),
 });
 
 export const updatePersonSchema = z.union([nameSchema, citySchema]);
 
 export type Person = z.infer<typeof personSchema>;
+
+export const contributionSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  location: z.string(),
+});
+
+export type Contribution = z.infer<typeof contributionSchema>;
