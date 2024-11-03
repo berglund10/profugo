@@ -1,4 +1,4 @@
-# Profugo
+ # Profugo
 
 The API provides a way for restaurants and stores to report leftovers or food that would otherwise go to waste. Additionally, it allows the organization to retrieve a list of restaurants with guaranteed food contributions, enabling prioritized visits to these locations before continuing with regular outreach.
 
@@ -83,5 +83,7 @@ npm run dev
   - `400 Bad Request:` Invalid input.
   - `404 Not Found:` Person ID does not exist.
   - `500 Internal Server Error:` Request processing error.
+
+<img width="1005" alt="bigpictureplan" src="https://github.com/user-attachments/assets/01ee10cb-ab36-430d-8ae0-4795608f185c">
 
 
