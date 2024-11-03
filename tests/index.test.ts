@@ -22,13 +22,23 @@ test("GET /api/v1/registration", async () => {
 test("POST /api/v1/registration", async () => {
   const app = createApp();
 
-  const result = await request(app)
-    .post("/api/v1/registration")
-    .send({
-      name: "Anton",
-      personalNumber: "19921027-0196",
-      city: "Stockholm",
-    });
+  const result = await request(app).post("/api/v1/registration").send({
+    name: "Anton",
+    personalNumber: "19921027-0196",
+    city: "Stockholm",
+  });
+
+  deepEqual(result.body.error, "Person already in database");
+});
+
+test("POST /api/v1/registration", async () => {
+  const app = createApp();
+
+  const result = await request(app).post("/api/v1/registration").send({
+    name: "Bosse",
+    personalNumber: "19640823-3234",
+    city: "Göteborg",
+  });
 
   deepEqual(result.status, 201);
 });
