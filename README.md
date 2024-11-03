@@ -82,6 +82,4 @@ npm run dev
   - `404 Not Found:` Person ID does not exist.
   - `500 Internal Server Error:` Request processing error.
 
-<img width="1005" alt="bigpictureplan" src="https://github.com/user-attachments/assets/01ee10cb-ab36-430d-8ae0-4795608f185c">
-
 
