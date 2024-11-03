@@ -20,7 +20,7 @@ export const createContributionsDb = (): ContributionDatabase => {
     addContribution: async (contribution: Contribution) => {
       const isContributionInDatabase = contributionDatabase.some(
         (existingContribution) =>
-          existingContribution.id === existingContribution.id,
+          existingContribution.id === contribution.id,
       );
       if (isContributionInDatabase) {
         throw new Error("Contribution already in database");
@@ -30,7 +30,7 @@ export const createContributionsDb = (): ContributionDatabase => {
     deleteContributionById: async (id: string) => {
       const index = contributionDatabase.findIndex((c) => c.id === id);
       if (index === -1) {
-        throw new Error("Person not found");
+        throw new Error("Contribution not found");
       }
       contributionDatabase.splice(index, 1);
     },
