@@ -36,7 +36,10 @@ export function createRegistrationRouter(db: PersonDatabase) {
         }
 
         try {
-          await db.addPerson(PersonToRegister);
+          if(!(await db.addPerson(PersonToRegister))) {
+            res.status(400).json({ error: { message: "Person already in database"}})
+            return;
+          }
           res.status(201).json(PersonToRegister.id);
         } catch (error) {
           res

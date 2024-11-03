@@ -2,7 +2,7 @@ import { Person } from "../validation";
 
 export interface PersonDatabase {
   getAll: () => Promise<Person[]>;
-  addPerson: (person: Person) => Promise<void>;
+  addPerson: (person: Person) => Promise<boolean>;
   getPersonById: (id: string) => Promise<Person | null>;
   deletePersonById: (id: string) => Promise<boolean>;
   putPersonById: (
@@ -24,7 +24,14 @@ export const createDb = (): PersonDatabase => {
   return {
     getAll: async () => personDatabase,
     addPerson: async (person: Person) => {
+      const isPersonInDatabase = personDatabase.some(
+        (existingPerson) => existingPerson.id === person.id,
+      );
+      if (isPersonInDatabase) {
+        return false;
+      }
       personDatabase.push(person);
+      return true;
     },
     getPersonById: async (id: string) => {
       const person = personDatabase.find((p) => p.id === id);
