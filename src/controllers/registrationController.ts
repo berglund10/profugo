@@ -10,7 +10,11 @@ export const createPersonController = (db: PersonDatabase) => ({
       const persons = await db.getAll();
       res.status(200).json(persons);
     } catch (error) {
-      res.status(500).json({ error: error instanceof Error ? error.message : "Internal server error" });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        return;
+      }
+      res.status(500).json({ error: { message: "Internal server error" } });
     }
   },
 
@@ -18,7 +22,7 @@ export const createPersonController = (db: PersonDatabase) => ({
     const { name, personalNumber, city } = req.body;
     const id = uuidv4();
     const personToRegister = { id, name, personalNumber, city };
-    
+
     const result = personSchema.safeParse(personToRegister);
     if (!result.success || !isValidLuhn(personToRegister.personalNumber)) {
       res.status(400).json({ error: { message: "Invalid input" } });
@@ -29,7 +33,11 @@ export const createPersonController = (db: PersonDatabase) => ({
       await db.addPerson(personToRegister);
       res.status(201).json(personToRegister.id);
     } catch (error) {
-      res.status(400).json({ error: error instanceof Error ? error.message : "Internal server error" });
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+        return;
+      }
+      res.status(500).json({ error: { message: "Internal server error" } });
     }
   },
 
@@ -39,7 +47,11 @@ export const createPersonController = (db: PersonDatabase) => ({
       const person = await db.getPersonById(id);
       res.status(200).json(person);
     } catch (error) {
-      res.status(404).json({ error: error instanceof Error ? error.message : "Internal server error" });
+      if (error instanceof Error) {
+        res.status(404).json({ error: error.message });
+        return;
+      }
+      res.status(500).json({ error: { message: "Internal server error" } });
     }
   },
 
@@ -49,7 +61,11 @@ export const createPersonController = (db: PersonDatabase) => ({
       await db.deletePersonById(id);
       res.status(200).json({ message: "Person deleted successfully" });
     } catch (error) {
-      res.status(404).json({ error: error instanceof Error ? error.message : "Internal server error" });
+      if (error instanceof Error) {
+        res.status(404).json({ error: error.message });
+        return;
+      }
+      res.status(500).json({ error: { message: "Internal server error" } });
     }
   },
 
@@ -67,7 +83,11 @@ export const createPersonController = (db: PersonDatabase) => ({
       const updatedPerson = await db.putPersonById(id, personToUpdate);
       res.status(200).json(updatedPerson);
     } catch (error) {
-      res.status(404).json({ error: error instanceof Error ? error.message : "Internal server error" });
+      if (error instanceof Error) {
+        res.status(404).json({ error: error.message });
+        return;
+      }
+      res.status(500).json({ error: { message: "Internal server error" } });
     }
-  }
+  },
 });

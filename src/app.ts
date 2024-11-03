@@ -1,12 +1,20 @@
 import express, { Request, Response } from "express";
 import { createRegistrationRouter } from "./routes/registration";
-import { createDb } from "./db/person-database";
+import { createPersonDb } from "./db/person-database";
+import { createFoodContributionsRouter } from "./routes/food-contribution";
+import { resetFoodDatabase } from "./middleware/resetFoodDatabase";
+import { createContributionsDb } from "./db/contributions-database";
 
 export function createApp() {
-  const personDb = createDb();
+  const personDb = createPersonDb();
+  const contributions = createContributionsDb();
+
   const registration = createRegistrationRouter(personDb);
+  const foodContribution = createFoodContributionsRouter(contributions);
 
   const app = express();
+
+  //app.use(resetFoodDatabase(foodDb));
 
   app.use(express.json());
 
@@ -15,6 +23,8 @@ export function createApp() {
   });
 
   app.use("/api/v1/registration", registration.getRouter());
+
+  app.use("/api/v1/food-contributions", foodContribution.getRouter());
 
   return app;
 }

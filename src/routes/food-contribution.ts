@@ -29,7 +29,7 @@ export function createFoodContributionsRouter(db: ContributionDatabase) {
           name,
           location,
         };
-        const result = contributionSchema.safeParse(contributionToRegister)
+        const result = contributionSchema.safeParse(contributionToRegister);
         if (!result.success) {
           res.status(400).json({ error: { message: "Invalid input" } });
           return;
@@ -41,6 +41,22 @@ export function createFoodContributionsRouter(db: ContributionDatabase) {
         } catch (error) {
           if (error instanceof Error) {
             res.status(400).json({ error: error.message });
+            return;
+          }
+          res.status(500).json({ error: { message: "Internal server error" } });
+        }
+      });
+
+      router.delete("/:id", async (req: Request, res: Response) => {
+        const id = req.params.id;
+        try {
+          await db.deleteContributionById(id);
+          res
+            .status(200)
+            .json({ message: "Contribution deleted successfully" });
+        } catch (error) {
+          if (error instanceof Error) {
+            res.status(404).json({ error: error.message });
             return;
           }
           res.status(500).json({ error: { message: "Internal server error" } });

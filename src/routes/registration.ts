@@ -5,7 +5,7 @@ import { createPersonController } from "../controllers/registrationController";
 export function createRegistrationRouter(db: PersonDatabase) {
   return {
     getRouter() {
-      const personController = createPersonController(db)
+      const personController = createPersonController(db);
       const router = express.Router();
 
       router.get("/", personController.getPersons);

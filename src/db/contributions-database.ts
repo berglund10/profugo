@@ -19,8 +19,7 @@ export const createContributionsDb = (): ContributionDatabase => {
     getAll: async () => contributionDatabase,
     addContribution: async (contribution: Contribution) => {
       const isContributionInDatabase = contributionDatabase.some(
-        (existingContribution) =>
-          existingContribution.id === contribution.id,
+        (existingContribution) => existingContribution.id === contribution.id,
       );
       if (isContributionInDatabase) {
         throw new Error("Contribution already in database");
