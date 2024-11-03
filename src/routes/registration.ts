@@ -14,9 +14,11 @@ export function createRegistrationRouter(db: PersonDatabase) {
           const persons = await db.getAll();
           res.status(200).json(persons);
         } catch (error) {
-          res
-            .status(500)
-            .json({ error: { message: "Failed to fetch persons" } });
+          if (error instanceof Error) {
+            res.status(500).json({ error: error.message });
+            return;
+          }
+          res.status(500).json({ error: { message: "Internal server error" } });
         }
       });
 
@@ -36,15 +38,14 @@ export function createRegistrationRouter(db: PersonDatabase) {
         }
 
         try {
-          if(!(await db.addPerson(PersonToRegister))) {
-            res.status(400).json({ error: { message: "Person already in database"}})
-            return;
-          }
+          await db.addPerson(PersonToRegister);
           res.status(201).json(PersonToRegister.id);
         } catch (error) {
-          res
-            .status(500)
-            .json({ error: { message: "Failed to register person" } });
+          if (error instanceof Error) {
+            res.status(400).json({ error: error.message });
+            return;
+          }
+          res.status(500).json({ error: { message: "Internal server error" } });
         }
       });
 
@@ -52,31 +53,27 @@ export function createRegistrationRouter(db: PersonDatabase) {
         const id = req.params.id;
         try {
           const person = await db.getPersonById(id);
-          if (!person) {
-            res.status(404).json({ error: { message: "Person not found" } });
-            return;
-          }
           res.status(200).json(person);
         } catch (error) {
-          console.error("Error fetching person by ID:", error);
-          res
-            .status(500)
-            .json({ error: { message: "Failed to fetch person" } });
+          if (error instanceof Error) {
+            res.status(400).json({ error: error.message });
+            return;
+          }
+          res.status(500).json({ error: { message: "Internal server error" } });
         }
       });
 
       router.delete("/:id", async (req: Request, res: Response) => {
         const id = req.params.id;
         try {
-          if (!(await db.deletePersonById(id))) {
-            res.status(404).json({ error: { message: "Person not found" } });
-            return;
-          }
+          await db.deletePersonById(id);
           res.status(200).json({ message: "Person deleted successfully" });
         } catch (error) {
-          res
-            .status(500)
-            .json({ error: { message: "Failed to delete person" } });
+          if (error instanceof Error) {
+            res.status(404).json({ error: error.message });
+            return;
+          }
+          res.status(500).json({ error: { message: "Internal server error" } });
         }
       });
 
@@ -95,16 +92,13 @@ export function createRegistrationRouter(db: PersonDatabase) {
 
         try {
           const updatedPerson = await db.putPersonById(id, personToUpdate);
-          if (!updatedPerson) {
-            res.status(404).json({ error: { message: "Person not found" } });
-            return;
-          }
           res.status(200).json(updatedPerson);
         } catch (error) {
-          console.error("Error updating person:", error);
-          res
-            .status(500)
-            .json({ error: { message: "Failed to update person" } });
+          if (error instanceof Error) {
+            res.status(404).json({ error: error.message });
+            return;
+          }
+          res.status(500).json({ error: { message: "Internal server error" } });
         }
       });
 
