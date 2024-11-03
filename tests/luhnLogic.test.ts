@@ -51,3 +51,23 @@ test("input with invalid number should return false", () => {
   const result = isValidLuhn("19921027-0197");
   deepEqual(result, false);
 });
+
+test("input correct personalNumber shoud be true", () => {
+  const result = isValidLuhn("196408233234");
+  deepEqual(result, true);
+})
+
+test("input correct personalNumber shoud be true", () => {
+  const result = isValidLuhn("196209186672");
+  deepEqual(result, true);
+})
+
+test("input incorrect personalNumber should be false", () => {
+  const result = isValidLuhn("199292920195");
+  deepEqual(result, false);
+})
+
+test("input incorrect personalNumber should be false", () => {
+  const result = isValidLuhn("11111111-1111");
+  deepEqual(result, false);
+})
