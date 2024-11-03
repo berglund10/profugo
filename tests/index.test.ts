@@ -24,7 +24,11 @@ test("POST /api/v1/registration", async () => {
 
   const result = await request(app)
     .post("/api/v1/registration")
-    .send({ name: "Anton", personalNumber: "19921027-0196", city: "Stockholm" });
+    .send({
+      name: "Anton",
+      personalNumber: "19921027-0196",
+      city: "Stockholm",
+    });
 
   deepEqual(result.status, 201);
 });
@@ -48,7 +52,7 @@ test("PUT /api/v1/registration", async () => {
 
   const result = await request(app)
     .put("/api/v1/registration/1")
-    .send({ city: "Stockholm"});
+    .send({ city: "Stockholm" });
 
   deepEqual(result.status, 200);
 });

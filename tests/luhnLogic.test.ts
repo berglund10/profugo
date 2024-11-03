@@ -38,14 +38,14 @@ test("input can just contain 12 digits and be valid", () => {
 });
 
 test("test personalnumber after 2000", () => {
-    const result = isValidLuhn("20040101-1234")
-    deepEqual(result, true);
-})
+  const result = isValidLuhn("20040101-1234");
+  deepEqual(result, true);
+});
 
 test("test personalnumber after 2000", () => {
-    const result = isValidLuhn("20040101-1235")
-    deepEqual(result, false);
-})
+  const result = isValidLuhn("20040101-1235");
+  deepEqual(result, false);
+});
 
 test("input with invalid number should return false", () => {
   const result = isValidLuhn("19921027-0197");
