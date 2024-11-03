@@ -1,5 +1,3 @@
- # Profugo
-
 The API provides a way for restaurants and stores to report leftovers or food that would otherwise go to waste. Additionally, it allows the organization to retrieve a list of restaurants with guaranteed food contributions, enabling prioritized visits to these locations before continuing with regular outreach.
 
 If someone wishes to register, the API supports all CRUD operations and includes checks to ensure that a person’s identification number is not already registered. It also validates the input using Zod and verifies the correctness of the identification number with the Luhn algorithm.
