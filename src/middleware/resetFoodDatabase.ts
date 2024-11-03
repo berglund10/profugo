@@ -6,7 +6,6 @@ export const resetFoodDatabase = (contributionDb: ContributionDatabase) => {
 
   return (req: Request, res: Response, next: NextFunction) => {
     const today = new Date().toISOString().split("T")[0];
-    //2024-11-03T12:34:56.789Z
 
     if (lastResetDate !== today) {
       contributionDb.resetDb();
