@@ -25,7 +25,7 @@ export const createDb = (): PersonDatabase => {
     getAll: async () => personDatabase,
     addPerson: async (person: Person) => {
       const isPersonInDatabase = personDatabase.some(
-        (existingPerson) => existingPerson.id === person.id,
+        (existingPerson) => existingPerson.personalNumber === person.personalNumber,
       );
       if (isPersonInDatabase) {
         return false;
