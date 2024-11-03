@@ -4,6 +4,7 @@ export interface ContributionDatabase {
   getAll: () => Promise<Contribution[]>;
   addContribution: (contribution: Contribution) => Promise<void>;
   deleteContributionById: (id: string) => Promise<void>;
+  resetDb: () => Promise<void>;
 }
 
 export const createContributionsDb = (): ContributionDatabase => {
@@ -33,5 +34,8 @@ export const createContributionsDb = (): ContributionDatabase => {
       }
       contributionDatabase.splice(index, 1);
     },
+    resetDb: async () => {
+      contributionDatabase.length = 0;
+    }
   };
 };

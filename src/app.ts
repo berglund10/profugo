@@ -14,8 +14,6 @@ export function createApp() {
 
   const app = express();
 
-  //app.use(resetFoodDatabase(foodDb));
-
   app.use(express.json());
 
   app.get("/status", (req: Request, res: Response) => {
@@ -23,6 +21,8 @@ export function createApp() {
   });
 
   app.use("/api/v1/registration", registration.getRouter());
+
+  app.use(resetFoodDatabase(contributions));
 
   app.use("/api/v1/food-contributions", foodContribution.getRouter());
 
