@@ -1,4 +1,4 @@
-import { Contribution } from "../validation";
+import { Contribution } from "../../validation";
 
 export interface ContributionDatabase {
   getAll: () => Promise<Contribution[]>;

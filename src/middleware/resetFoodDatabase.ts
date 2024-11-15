@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import { ContributionDatabase } from "../db/contributions-database";
+import { ContributionDatabase } from "../features/food-contribution/repository";
 
 export const resetFoodDatabase = (contributionDb: ContributionDatabase) => {
   let lastResetDate: string | null = null;
@@ -8,7 +8,7 @@ export const resetFoodDatabase = (contributionDb: ContributionDatabase) => {
     const today = new Date().toISOString().split("T")[0];
 
     if (lastResetDate !== today) {
-      contributionDb.resetDb();
+      //contributionDb.resetDb();
       lastResetDate = today;
       console.log("Food donations database cleared.");
     }
