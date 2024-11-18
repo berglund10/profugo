@@ -1,12 +1,8 @@
 import express, { Request, Response } from "express";
-import { createRegistrationRouter } from "./routes/registration";
-import { createPersonDb } from "./db/person-database";
 import { createContributionsFeature } from "./features/food-contribution/feature";
+import { createPersonFeature } from "./features/registration/feature";
 
 export function createApp() {
-  const personDb = createPersonDb();
-
-  const registration = createRegistrationRouter(personDb);
 
   const app = express();
 
@@ -16,7 +12,7 @@ export function createApp() {
     res.status(200).json({ message: "Ready" });
   });
 
-  app.use("/api/v1/registration", registration.getRouter());
+  app.use("/api/v1/registration", createPersonFeature().router);
 
   app.use("/api/v1/food-contributions", createContributionsFeature().router);
 

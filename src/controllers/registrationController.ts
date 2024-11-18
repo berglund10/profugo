@@ -5,18 +5,6 @@ import { isValidLuhn } from "../logic/luhnLogic";
 import { v4 as uuidv4 } from "uuid";
 
 export const createPersonController = (db: PersonDatabase) => ({
-  getPersons: async (req: Request, res: Response) => {
-    try {
-      const persons = await db.getAll();
-      res.status(200).json(persons);
-    } catch (error) {
-      if (error instanceof Error) {
-        res.status(500).json({ error: error.message });
-        return;
-      }
-      res.status(500).json({ error: { message: "Internal server error" } });
-    }
-  },
 
   addPerson: async (req: Request, res: Response) => {
     const { name, personalNumber, city } = req.body;

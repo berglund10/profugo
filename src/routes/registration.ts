@@ -8,8 +8,6 @@ export function createRegistrationRouter(db: PersonDatabase) {
       const personController = createPersonController(db);
       const router = express.Router();
 
-      router.get("/", personController.getPersons);
-
       router.post("/", personController.addPerson);
 
       router.get("/:id", personController.getPersonById);
