@@ -36,6 +36,6 @@ export const createContributionsDb = (): ContributionDatabase => {
     },
     resetDb: async () => {
       contributionDatabase.length = 0;
-    }
+    },
   };
 };

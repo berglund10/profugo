@@ -12,7 +12,7 @@ export const createRouter = (service: Service) => {
   router.post("/", async (req, res) => {
     await service.addContribution(req.body);
     res.status(201).json();
-  })
+  });
 
   router.delete("/:id", async (req, res) => {
     await service.deleteContribution(req.params.id);
