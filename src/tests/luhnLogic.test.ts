@@ -1,6 +1,6 @@
 import test from "node:test";
 import { deepEqual } from "node:assert/strict";
-import { isValidLuhn } from "../src/logic/luhnLogic";
+import { isValidLuhn } from "../logic/luhnLogic";
 
 test("empty string should return false", () => {
   const result = isValidLuhn("");
