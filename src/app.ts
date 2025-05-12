@@ -9,6 +9,7 @@ export function createApp() {
   app.use(express.json());
 
   app.get("/status", (req: Request, res: Response) => {
+    console.log("Denna podden svarade!");
     res.status(200).json({ message: "Are you ready now?" });
   });
 
