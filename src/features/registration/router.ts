@@ -14,7 +14,7 @@ export const createRouter = (service: Service) => {
     res.status(200).json(person);
   });
 
-  router.post("/", async (req, res) => {
+/*   router.post("/", async (req, res) => {
     const personId = await service.addPerson(req.body);
     res.status(201).json(personId);
   });
@@ -30,7 +30,7 @@ export const createRouter = (service: Service) => {
   router.delete("/:id", async (req, res) => {
     await service.deletePersonById(req.params.id);
     res.status(204).json({ message: "Person deleted successfully" });
-  });
+  }); */
 
   return router;
 };

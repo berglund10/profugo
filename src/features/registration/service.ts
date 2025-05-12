@@ -1,13 +1,15 @@
+import { Db } from "../../db";
 import { isValidLuhn } from "../../logic/luhnLogic";
 import { Person, personSchema, updatePersonSchema } from "../../validation";
-import { PersonDatabase } from "./repository";
 import { v4 as uuidv4 } from "uuid";
+import { registrationTable } from "./schema";
+import { eq } from "drizzle-orm";
 
-export const createService = (db: PersonDatabase) => {
+export const createService = (db: Db) => {
   return {
     getPersons: async () => {
       try {
-        const persons = await db.getAll();
+        const persons = await db.select().from(registrationTable);
         return persons;
       } catch (error) {
         if (error instanceof Error) {
@@ -18,7 +20,7 @@ export const createService = (db: PersonDatabase) => {
     },
     getPersonById: async (id: string) => {
       try {
-        const person = await db.getPersonById(id);
+        const person = await db.select().from(registrationTable).where(eq(registrationTable.id, parseInt(id)));
         return person;
       } catch (error) {
         if (error instanceof Error) {
@@ -26,8 +28,8 @@ export const createService = (db: PersonDatabase) => {
         }
         throw new Error("Internal server error");
       }
-    },
-    addPerson: async (person: Person) => {
+    }
+/*     addPerson: async (person: Person) => {
       const { name, personalNumber, city } = person;
       const id = uuidv4();
       const personToRegister = { id, name, personalNumber, city };
@@ -72,7 +74,7 @@ export const createService = (db: PersonDatabase) => {
         }
         throw new Error("Internal server error");
       }
-    },
+    }, */
   };
 };
 
