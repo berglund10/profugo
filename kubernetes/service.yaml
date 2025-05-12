@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: express-app-service
+  name: my-express-app-service
   namespace: profugo
 spec:
   selector:
-    app: express-app
+    app: my-express-app
   ports:
     - protocol: TCP
       port: 80

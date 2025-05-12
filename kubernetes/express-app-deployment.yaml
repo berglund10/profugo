@@ -14,7 +14,7 @@ spec:
         app: my-express-app
     spec:
       containers:
-        - name: express-app
+        - name: my-express-app
           image: berglund10/my_express_app:latest
           ports:
             - containerPort: 3000
