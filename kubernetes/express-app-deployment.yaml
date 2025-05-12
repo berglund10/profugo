@@ -18,3 +18,11 @@ spec:
           image: berglund10/my_express_app:latest
           ports:
             - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:$(POSTGRES_PASSWORD)@postgres:5432/kada"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: POSTGRES_PASSWORD
