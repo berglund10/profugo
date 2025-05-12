@@ -9,7 +9,7 @@ export function createApp() {
   app.use(express.json());
 
   app.get("/status", (req: Request, res: Response) => {
-    res.status(200).json({ message: "Ready" });
+    res.status(200).json({ message: "Are you ready?" });
   });
 
   app.use("/api/v1/registration", createPersonFeature().router);
