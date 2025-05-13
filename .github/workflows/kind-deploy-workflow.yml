@@ -32,14 +32,3 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ env.IMAGE_TAG }}
-
-      - name: Set up KinD cluster
-        uses: helm/kind-action@v1.10.0
-
-      - name: Set up kubeconfig
-        run: |
-          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
-
-      - name: Update Kubernetes Deployment
-        run: |
-          kubectl set image deployment/my-express-app my-express-app=${{ env.IMAGE_TAG }} -n profugo
