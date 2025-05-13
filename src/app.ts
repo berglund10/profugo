@@ -13,6 +13,12 @@ export function createApp() {
     res.status(200).json({ message: "Are you ready??" });
   });
 
+  app.get("/healthz", (req: Request, res: Response) => {
+    res.status(200).json({
+      message: "Healthy"
+    });
+  })
+
   app.use("/api/v1/registration", createPersonFeature().router);
 
   app.use("/api/v1/food-contributions", createContributionsFeature().router);
