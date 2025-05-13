@@ -13,11 +13,9 @@ export function createApp() {
     res.status(200).json({ message: "Are you ready??" });
   });
 
-  app.get("/healthz", (req: Request, res: Response) => {
-    res.status(200).json({
-      message: "Healthy"
-    });
-  })
+  app.get("/ok", (req: Request, res: Response) => {
+    res.send("ok");
+  });
 
   app.use("/api/v1/registration", createPersonFeature().router);
 
