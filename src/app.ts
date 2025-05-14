@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { createContributionsFeature } from "./features/food-contribution/feature";
 import { createPersonFeature } from "./features/registration/feature";
 import { createErrorRequestHandler } from "./middleware/error-handler";
+import logger from "./logger";
 
 export function createApp() {
   const app = express();
@@ -9,11 +10,12 @@ export function createApp() {
   app.use(express.json());
 
   app.get("/status", (req: Request, res: Response) => {
-    console.log("Denna podden svarade!");
+    logger.info("Denna podden svarade");
     res.status(200).json({ message: "Are you ready??" });
   });
 
   app.get("/ok", (req: Request, res: Response) => {
+    logger.log("error", "Något gick jävligt fel");
     res.send("ok");
   });
 

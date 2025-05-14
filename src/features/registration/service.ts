@@ -28,11 +28,10 @@ export const createService = (db: Db) => {
         }
         throw new Error("Internal server error");
       }
-    }
-/*     addPerson: async (person: Person) => {
+    },
+    addPerson: async (person: Person) => {
       const { name, personalNumber, city } = person;
-      const id = uuidv4();
-      const personToRegister = { id, name, personalNumber, city };
+      const personToRegister = { name, personalNumber, city };
 
       const result = personSchema.safeParse(personToRegister);
       if (!result.success || !isValidLuhn(personToRegister.personalNumber)) {
@@ -40,8 +39,8 @@ export const createService = (db: Db) => {
       }
 
       try {
-        await db.addPerson(personToRegister);
-        return personToRegister.id;
+        await db.insert(registrationTable).values(personToRegister);
+        return personToRegister.personalNumber;
       } catch (error) {
         if (error instanceof Error) {
           throw new Error(error.message);
@@ -49,6 +48,7 @@ export const createService = (db: Db) => {
         throw new Error("Internal server error");
       }
     },
+/*     
     updatePersonById: async (person: Person, id: string) => {
       const result = updatePersonSchema.safeParse(person);
       if (!result.success) {
