@@ -19,6 +19,7 @@
     "express": "^4.21.1",
     "pg": "^8.15.6",
     "uuid": "^11.0.2",
+    "winston": "^3.17.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
