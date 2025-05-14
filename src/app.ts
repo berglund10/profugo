@@ -16,6 +16,7 @@ export function createApp() {
 
   app.get("/ok", (req: Request, res: Response) => {
     logger.log("error", "Något gick jävligt fel");
+    console.log(process.env.TEST); 
     res.send("ok");
   });
 
