@@ -11,6 +11,7 @@ export function createApp() {
 
   app.get("/status", (req: Request, res: Response) => {
     logger.info("Denna podden svarade");
+    console.log(process.env.MOREIFO);
     res.status(200).json({ message: "Are you ready??" });
   });
 
