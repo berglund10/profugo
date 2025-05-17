@@ -13,9 +13,11 @@ export const createService = (db: Db) => {
         return persons;
       } catch (error) {
         if (error instanceof Error) {
-          throw new Error(error.message);
+          //throw new Error(error.message);
+          console.log("ERROR!!!!");
         }
-        throw new Error("Internal server error");
+        //throw new Error("Internal server error");
+        console.log("ERROR 2");
       }
     },
     getPersonById: async (id: string) => {
