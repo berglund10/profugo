@@ -21,6 +21,10 @@ export function createApp() {
     res.send("ok");
   });
 
+  app.get('/', (req, res) => {
+  res.send('Welcome to root!');
+});
+
   app.use("/api/v1/registration", createPersonFeature().router);
 
   app.use("/api/v1/food-contributions", createContributionsFeature().router);
